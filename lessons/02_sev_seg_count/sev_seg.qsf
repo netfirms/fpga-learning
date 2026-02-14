@@ -1,0 +1,91 @@
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+#
+# -------------------------------------------------------------------------- #
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE6E22C8
+set_global_assignment -name TOP_LEVEL_ENTITY SevenSegCount
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "10:00:00  FEBRUARY 14, 2026"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+
+# VHDL Files
+set_global_assignment -name VHDL_FILE SevenSegCount.vhd
+set_global_assignment -name VHDL_FILE Debounce.vhd
+set_global_assignment -name VHDL_FILE SevenSegDecoder.vhd
+
+# ==============================================================================
+# PIN ASSIGNMENTS
+# ==============================================================================
+
+# CLOCK
+# Check your board schematic. Often PIN_23 or PIN_25.
+set_location_assignment PIN_23 -to clk 
+
+# RESET (Active Low)
+# Check if you have a dedicated reset button. 
+# If not, you can use a spare key or switch.
+set_location_assignment PIN_25 -to reset_n
+
+# BUTTON (Count Input)
+# Using `sw3` from previous lesson as the input button/switch.
+# If `sw3` is a toggle switch, you will need to toggle it on/off to count.
+set_location_assignment PIN_90 -to btn
+
+# LEDS (Visual Debug)
+set_location_assignment PIN_87 -to led[0]
+set_location_assignment PIN_86 -to led[1]
+set_location_assignment PIN_85 -to led[2]
+set_location_assignment PIN_84 -to led[3]
+
+# 7-SEGMENT DISPLAY
+# IMPORTANT: YOU MUST UPDATE THESE PINS BASED ON YOUR SCHEMATIC
+# "Development_board_schematic_V2.1.pdf"
+
+# Digit Selects (Active Low usually)
+set_location_assignment PIN_XXX -to sel[0]  # Digit 1
+set_location_assignment PIN_XXX -to sel[1]  # Digit 2
+set_location_assignment PIN_XXX -to sel[2]  # Digit 3
+set_location_assignment PIN_XXX -to sel[3]  # Digit 4
+
+# Segments (A-G)
+set_location_assignment PIN_XXX -to seg[0]  # Segment A
+set_location_assignment PIN_XXX -to seg[1]  # Segment B
+set_location_assignment PIN_XXX -to seg[2]  # Segment C
+set_location_assignment PIN_XXX -to seg[3]  # Segment D
+set_location_assignment PIN_XXX -to seg[4]  # Segment E
+set_location_assignment PIN_XXX -to seg[5]  # Segment F
+set_location_assignment PIN_XXX -to seg[6]  # Segment G
+
+# IO Standards
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reset_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to btn
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[3]
+
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

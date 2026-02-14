@@ -10,10 +10,16 @@
 - **Global Clock Networks**: 10
 - **Package**: EQFP-144
 
-## Pin Assignments
-The following assignments are derived from the existing project configuration (`SwitchDrivesLED`).
+## Board Model (Inferred)
+Based on the pin assignments for LEDs (87, 86, 85, 84) and Keys (88, 89, 90, 91), this board matches the **RZ-EasyFPGA A2.1 / A2.2** (or compatible variant).
 
-### User LEDs
+## Pin Assignments
+
+### Clock & Reset
+- **Clock (50 MHz)**: **PIN_23**
+- **Reset**: **PIN_25** (Check if dedicated key or shared)
+
+### User LEDs (Active Low)
 | Signal | Pin | Note |
 |:-------|:----|:-----|
 | led1   | PIN_87 | |
@@ -21,7 +27,8 @@ The following assignments are derived from the existing project configuration (`
 | led3   | PIN_85 | |
 | led4   | PIN_84 | |
 
-### User Switches
+### User Switches (Active Low)
+These are typically push-buttons.
 | Signal | Pin | Note |
 |:-------|:----|:-----|
 | sw1    | PIN_88 | |
@@ -29,20 +36,63 @@ The following assignments are derived from the existing project configuration (`
 | sw3    | PIN_90 | |
 | sw4    | PIN_91 | |
 
-### Clock & Reset
-- **Clock (50 MHz)**: Likely **PIN_23** or **PIN_25**.
-  > [!NOTE]
-  > Common configurations use **PIN_23** for 50MHz input. However, some variants use PIN_23 for UART RX. Please verify.
-- **Reset**: Often **PIN_25** (if not clock) or a dedicated key.
+### 7-Segment Display
+The board typically has a 4-digit 7-segment display (Common Anode).
+
+**Digit Selects (Active Low scans):**
+| Digit | Pin    | Note |
+|:------|:-------|:-----|
+| D1    | PIN_133| Leftmost digit |
+| D2    | PIN_135| |
+| D3    | PIN_136| |
+| D4    | PIN_137| Rightmost digit |
+
+**Segments (Active Low):**
+| Segment | Pin    | Note |
+|:--------|:-------|:-----|
+| A       | PIN_128| |
+| B       | PIN_121| |
+| C       | PIN_125| |
+| D       | PIN_129| |
+| E       | PIN_132| |
+| F       | PIN_126| |
+| G       | PIN_124| |
+| DP      | PIN_127| Decimal Point |
+
+### Buzzer
+- **Buzzer**: **PIN_110** (Active Low, usually requires oscillation)
 
 ### UART (Serial)
-- **TX**: **PIN_10** (Typical)
-- **RX**: **PIN_23** (Typical, check for conflict with Clock)
+- **TX**: **PIN_11** (or PIN_10 on some variants)
+- **RX**: **PIN_10** (or PIN_11 on some variants)
 
-### 7-Segment Display & Buzzer
-**Pinouts for these peripherals vary significantly between board revisions (V2.0, V2.1, etc.).**
-- **Buzzer**: **Unknown**. (Some sources suggest PIN_85, but your QSF uses PIN_85 for `led3`).
-- **7-Segment**: Requires "Development_board_schematic_V2.1.pdf" to identify segment (A-G, DP) and digit select (D1-D4) pins.
+### Expansion Headers
+*Note: Refer to specific A2.2 schematic for full GPIO mapping.*
+- **VGA**: often uses a resistor ladder DAC on specific pins.
+- **PS/2**: often on PIN_119 (CLK) and PIN_120 (DAT).
 
-> [!IMPORTANT]
-> The assignments for LEDs and Switches are confirmed from your `fpga-learning.qsf`. Other assignments are derived from common "Cyclone IV E Core Board" documentation and should be verified.
+> [!CAUTION]
+> These assignments are derived from the **RZ-EasyFPGA A2.2** schematic which matches your LED/Key layout. 
+> **Please verify these pins on your actual board hardware before driving high-current signals.**
+
+## Common Applications (RZ-EasyFPGA)
+
+The RZ-EasyFPGA is a versatile entry-level board suitable for:
+
+1.  **Digital Logic Learning**:
+    -   Basic gates, counters, and state machines using LEDs and Keys.
+    -   7-Segment display control (timers, counters).
+    
+2.  **Embedded Systems**:
+    -   **NIOS II Soft Processor**: The EP4CE6 chip and onboard SDRAM (typically 64Mbit) support running a soft-core processor.
+    -   **uClinux**: Advanced users can run uClinux on the NIOS II core.
+
+3.  **Interface Projects**:
+    -   **VGA Controller**: Generating 640x480 @ 60Hz signals (using resistor ladder DAC).
+    -   **PS/2 Keyboard/Mouse**: Decoding PS/2 protocols.
+    -   **UART Communication**: Serial data exchange with PC.
+    -   **LCD Control**: Interfacing with LCD1602 or LCD12864 modules via the expansion header.
+
+4.  **Sensor Integration**:
+    -   Reading the onboard LM75 temperature sensor (I2C).
+    -   Infrared (IR) remote decoding.

@@ -9,3 +9,18 @@ vsim.wlf
 wlft*
 modelsim.ini
 work/
+
+# Quartus II
+db/
+incremental_db/
+output_files/
+simulation/
+*.bak
+*.qws
+*.sof
+*.pof
+*.done
+*.rpt
+*.summary
+*.smsg
+*~

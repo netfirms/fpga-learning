@@ -1,0 +1,72 @@
+# -------------------------------------------------------------------------- #
+# Lesson 7: LM75 Temperature Sensor
+# -------------------------------------------------------------------------- #
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE6E22C8
+set_global_assignment -name TOP_LEVEL_ENTITY Temp_Display
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+
+# VHDL Files
+set_global_assignment -name VHDL_FILE Temp_Display.vhd
+set_global_assignment -name VHDL_FILE LM75_Controller.vhd
+set_global_assignment -name VHDL_FILE SevenSegDecoder.vhd
+
+# ==============================================================================
+# PIN ASSIGNMENTS
+# ==============================================================================
+
+# CLOCK
+set_location_assignment PIN_23 -to clk
+set_location_assignment PIN_25 -to reset_n
+
+# BUTTONS
+set_location_assignment PIN_88 -to btn_mode
+
+# I2C (Assumed)
+set_location_assignment PIN_112 -to scl
+set_location_assignment PIN_113 -to sda
+
+# 7-Segment Display (RZ-EasyFPGA A2.2)
+set_location_assignment PIN_133 -to sel[3]
+set_location_assignment PIN_135 -to sel[2]
+set_location_assignment PIN_136 -to sel[1]
+set_location_assignment PIN_137 -to sel[0]
+
+set_location_assignment PIN_128 -to seg[0]
+set_location_assignment PIN_121 -to seg[1]
+set_location_assignment PIN_125 -to seg[2]
+set_location_assignment PIN_129 -to seg[3]
+set_location_assignment PIN_132 -to seg[4]
+set_location_assignment PIN_126 -to seg[5]
+set_location_assignment PIN_124 -to seg[6]
+set_location_assignment PIN_127 -to seg_dp
+
+# IO Standards
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reset_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to scl
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sda
+
+# Segments
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_dp
+
+# Selects
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[3]
+
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+
+set_global_assignment -name EDA_SIMULATION_TOOL "<None>"
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

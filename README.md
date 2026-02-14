@@ -14,6 +14,7 @@ This repository documents my journey in learning FPGA development using VHDL.
   - `05_vga/`: VGA controller (640x480 Color Bars).
   - `06_ps2_keyboard/`: PS/2 Keyboard decoder.
   - `07_lm75_temp/`: Digital Thermometer (I2C LM75 Sensor).
+  - `08_bouncing_ball/`: VGA Bouncing Ball Game (Physics Demo).
 - **scripts/**: Helper scripts for building and simulation.
 
 ## Resources

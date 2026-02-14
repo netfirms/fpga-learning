@@ -1,0 +1,11 @@
+# VHDL/FPGA ignorable files
+*.vcd
+*.ghw
+*.o
+*.cf
+*.work/
+transcript
+vsim.wlf
+wlft*
+modelsim.ini
+work/

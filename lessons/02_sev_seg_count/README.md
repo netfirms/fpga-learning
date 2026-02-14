@@ -1,47 +1,48 @@
 # Lesson 2: 7-Segment Display Counter
 
-This lesson demonstrates how to use the FPGA's 7-segment display and a push button to create a simple counter.
+This lesson demonstrates how to use the FPGA's 4-digit 7-segment display and push buttons to create a decimal counter.
 
 ## Overview
-- **Goal**: Increment a hex digit (0-F) on the 7-segment display every time a button is pressed.
+- **Goal**: Create a decimal counter (0-9999) using all 4 digits of the 7-segment display.
 - **Key Concepts**:
     -   Debouncing mechanical switches.
     -   7-Segment display decoding.
-    -   VHDL `process` blocks and state management.
+    -   Time-Division Multiplexing (for driving 4 digits with one segment bus).
+    -   BCD (Binary Coded Decimal) or simple decimal arithmetic.
 
 ## Hardware Requirements
-- Cyclone IV E FPGA Board.
-- 1 x Push Button (or Toggle Switch).
-- 1 x 7-Segment Display.
+- **Board**: RZ-EasyFPGA A2.1 / A2.2 (Cyclone IV E).
+- **Inputs**: 3 x Push Buttons (SW1, SW2, SW3).
+- **Outputs**: 4-Digit 7-Segment Display.
 
-## Critical Step: Pin Assignments
+## Pin Assignments
 
-> [!WARNING]
-> The pin assignments for the 7-segment display in `sev_seg.qsf` are **Generic Placeholders (`PIN_XXX`)**. 
-> 
-> **You MUST update `sev_seg.qsf` with the correct PIN numbers from your board's schematic (`Development_board_schematic_V2.1.pdf`) before compiling.**
+The project `02_sev_seg_count.qsf` uses the default pin assignments for the RZ-EasyFPGA board.
 
-Look for pins labeled:
--   **Segments**: `seg[0]` (A) through `seg[6]` (G).
--   **Digit Selects**: `sel[0]` through `sel[3]` (D1-D4).
+-   **Segments**: `seg[0]` (A) through `seg[6]` (G) on PINs 128, 121, 125, 129, 132, 126, 124.
+-   **Digit Selects**: `sel[0]` through `sel[3]` on PINs 133, 135, 136, 137.
+-   **LEDS**: Used for binary debugging of the counter's lower bits.
 
 ## How to Run
 
 1.  **Open Quartus Prime**.
-2.  Open the project file `sev_seg.qsf` (or create a new project using this file).
-3.  **Update Pin Assignments**:
-    -   Open `Assignments` -> `Pin Planner` OR edit `sev_seg.qsf` directly.
-    -   Replace `PIN_XXX` with actual pin numbers.
-4.  **Compile**:
+2.  Open the project file `02_sev_seg_count.qsf`.
+3.  **Compile**:
     -   Click `Processing` -> `Start Compilation`.
     -   Ensure there are no critical errors.
-5.  **Program**:
+4.  **Program**:
     -   Connect your FPGA board (USB Blaster).
     -   Open `Tools` -> `Programmer`.
     -   Click `Start` to upload the `.sof` file.
 
 ## Expected Behavior
--   The 7-segment display should show `0`.
--   Pressing the button (connected to `PIN_90`) should increment the count.
--   The count goes from `0` to `9`, then `A` to `F`, and wraps back to `0`.
--   **Note**: If you are using a toggle switch instead of a momentary button, you will need to toggle it ON and then OFF to register one count.
+-   **Display**: Shows a decimal number from `0` to `9999` across all 4 digits.
+-   **Controls**:
+    -   **SW3 (PIN_90)**: **Increase** count.
+    -   **SW2 (PIN_89)**: **Decrease** count.
+    -   **SW1 (PIN_88)**: **Reset** count to 0.
+-   **Behavior**: 
+    -   **Click**: Pressing a button triggers a single count change.
+    -   **Hold**: Holding a button triggers **continuous counting** (Auto-Repeat).
+        -   The counter will increment/decrement rapidly for fluid control.
+    -   Counter wraps around (9999 -> 0 and 0 -> 9999).

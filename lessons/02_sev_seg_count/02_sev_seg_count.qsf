@@ -27,14 +27,18 @@ set_global_assignment -name VHDL_FILE SevenSegDecoder.vhd
 # ==============================================================================
 
 # CLOCK
-set_location_assignment PIN_23 -to clk 
+set_location_assignment PIN_23 -to clk
 
 # RESET (Active Low)
 set_location_assignment PIN_25 -to reset_n
 
-# BUTTON (Count Input)
-# Using `sw3` (PIN_90)
-set_location_assignment PIN_90 -to btn
+# BUTTONS
+# sw3 (PIN_90) -> Increase
+set_location_assignment PIN_90 -to btn_inc
+# sw2 (PIN_89) -> Decrease
+set_location_assignment PIN_89 -to btn_dec
+# sw1 (PIN_88) -> Reset Count
+set_location_assignment PIN_88 -to btn_rst
 
 # LEDS (Visual Debug)
 set_location_assignment PIN_87 -to led[0]
@@ -44,19 +48,19 @@ set_location_assignment PIN_84 -to led[3]
 
 # 7-SEGMENT DISPLAY
 # Digit Selects (Active Low)
-set_location_assignment PIN_133 -to sel[0]  # Digit 1
-set_location_assignment PIN_135 -to sel[1]  # Digit 2
-set_location_assignment PIN_136 -to sel[2]  # Digit 3
-set_location_assignment PIN_137 -to sel[3]  # Digit 4
+set_location_assignment PIN_133 -to sel[0]
+set_location_assignment PIN_135 -to sel[1]
+set_location_assignment PIN_136 -to sel[2]
+set_location_assignment PIN_137 -to sel[3]
 
 # Segments (Active Low)
-set_location_assignment PIN_128 -to seg[0]  # Segment A
-set_location_assignment PIN_121 -to seg[1]  # Segment B
-set_location_assignment PIN_125 -to seg[2]  # Segment C
-set_location_assignment PIN_129 -to seg[3]  # Segment D
-set_location_assignment PIN_132 -to seg[4]  # Segment E
-set_location_assignment PIN_126 -to seg[5]  # Segment F
-set_location_assignment PIN_124 -to seg[6]  # Segment G
+set_location_assignment PIN_128 -to seg[0]
+set_location_assignment PIN_121 -to seg[1]
+set_location_assignment PIN_125 -to seg[2]
+set_location_assignment PIN_129 -to seg[3]
+set_location_assignment PIN_132 -to seg[4]
+set_location_assignment PIN_126 -to seg[5]
+set_location_assignment PIN_124 -to seg[6]
 # set_location_assignment PIN_127 -to dp      # Decimal Point (Not used in this design)
 
 # IO Standards
@@ -82,4 +86,5 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel[3]
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name EDA_SIMULATION_TOOL "<None>"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

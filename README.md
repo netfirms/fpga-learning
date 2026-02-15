@@ -96,11 +96,11 @@ graph TD
     end
     
     %% Laptop Connections
-    Terminal <==USB==> USB_TTL[USB-TTL Adapter]
-    USB_TTL <==TX/RX==> UART_Header
+    Terminal <==>|USB| USB_TTL[USB-TTL Adapter]
+    USB_TTL <==>|TX/RX| UART_Header
     UART_Header --- UART_RX & UART_TX
     
-    Quartus <==USB==> Blaster[USB-Blaster]
-    Blaster <==JTAG==> JTAG_Header
+    Quartus <==>|USB| Blaster[USB-Blaster]
+    Blaster <==>|JTAG| JTAG_Header
     JTAG_Header -.-> FPGA
 ```

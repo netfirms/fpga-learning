@@ -26,8 +26,8 @@ This repository documents my journey in learning FPGA development using VHDL.
 ```mermaid
 graph TD
     subgraph Laptop [Development Laptop]
-        Terminal[Serial Terminal<br/>(Minicom/PuTTY)]
-        Quartus[Quartus Prime<br/>(Programmer)]
+        Terminal["Serial Terminal<br/>(Minicom/PuTTY)"]
+        Quartus["Quartus Prime<br/>(Programmer)"]
     end
 
     subgraph Board [RZ-EasyFPGA Board]

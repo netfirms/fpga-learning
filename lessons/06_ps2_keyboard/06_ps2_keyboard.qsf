@@ -1,0 +1,64 @@
+# -------------------------------------------------------------------------- #
+# Lesson 6: PS/2 Keyboard Decoder
+# -------------------------------------------------------------------------- #
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE6E22C8
+set_global_assignment -name TOP_LEVEL_ENTITY Keyboard_Demo
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+
+# VHDL Files
+set_global_assignment -name VHDL_FILE Keyboard_Demo.vhd
+set_global_assignment -name VHDL_FILE PS2_RX.vhd
+set_global_assignment -name VHDL_FILE SevenSegDecoder.vhd
+
+# ==============================================================================
+# PIN ASSIGNMENTS (RZ-EasyFPGA A2.2)
+# ==============================================================================
+
+# CLOCK
+set_location_assignment PIN_23 -to clk
+
+# PS/2 Port
+set_location_assignment PIN_119 -to ps2_clk
+set_location_assignment PIN_120 -to ps2_data
+
+# 7-Segment Display (Same as Lesson 2)
+# Digits (Active Low Select)
+set_location_assignment PIN_133 -to sel_out[0]
+set_location_assignment PIN_135 -to sel_out[1]
+set_location_assignment PIN_136 -to sel_out[2]
+set_location_assignment PIN_137 -to sel_out[3]
+
+# Segments (Active Low)
+set_location_assignment PIN_128 -to seg_out[0]
+set_location_assignment PIN_121 -to seg_out[1]
+set_location_assignment PIN_125 -to seg_out[2]
+set_location_assignment PIN_129 -to seg_out[3]
+set_location_assignment PIN_132 -to seg_out[4]
+set_location_assignment PIN_126 -to seg_out[5]
+set_location_assignment PIN_124 -to seg_out[6]
+
+# IO Standards
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ps2_clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ps2_data
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel_out[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel_out[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel_out[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sel_out[3]
+
+# Segments
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to seg_out[6]
+
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name EDA_SIMULATION_TOOL "<None>"
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
